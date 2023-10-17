@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "computational"
+version = "0.1.0"
+description = "computational intelligence - polito course - s316999"
+authors = ["Alex <s316999@studenti.polito.it>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+black = {extras = ["yupyter"], version = "^22.12.0"}
+jupyter = "^1.0.0"
+matplotlib = "^3.5.3"
+nero = {extras = ["jupyter"], version = "^1.0.20220202"}
+networkx = "^2.8.5"
+numpy = ">=1.23"
+pandas = "^1.4.3"
+pydot = "^1.4.2"
+python = ">=3.9,<3.12"
+scipy = "^1.9.0"
+seaborn = "^0.11.2"
+toml = "^0.10.2"
+tqdm = "^4.64.0"
+isort = "^5.10.1"
+yapf = "^0.32.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.25.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+
+
+
+[tool.black]
+target-version            = ['py311']
+extend-exclude            = "^venv$"
+include                   = '(\.ipynb$|\.py$)'
+line-length               = 120
+skip-string-normalization = true
