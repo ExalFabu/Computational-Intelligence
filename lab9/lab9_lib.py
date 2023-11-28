@@ -3,9 +3,8 @@
 # Free for personal or classroom use; see 'LICENSE.md' for details.
 
 from abc import abstractmethod
-import logging
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
+
+
 class AbstractProblem:
     def __init__(self):
         self._calls = 0
@@ -25,14 +24,14 @@ class AbstractProblem:
 
     def __call__(self, genome):
         self._calls += 1
-        fitnesses = sorted((AbstractProblem.onemax(genome[s::self.x]) for s in range(self.x)), reverse=True)
-        val = fitnesses[0] - sum(f*(.1 ** (k+1)) for k, f in enumerate(fitnesses[1:]))
-        fitness = val / len(genome) * self.x
-        print(f"{val=} {fitnesses=} {fitness=}")
-        
-        return fitness
+        fitnesses = sorted((AbstractProblem.onemax(genome[s :: self.x]) for s in range(self.x)), reverse=True)
+        val = sum(f for f in fitnesses if f == fitnesses[0]) - sum(
+            f * (0.1 ** (k + 1)) for k, f in enumerate(f for f in fitnesses if f < fitnesses[0])
+        )
+        return val / len(genome)
 
-def make_problem(a: int):
+
+def make_problem(a):
     class Problem(AbstractProblem):
         @property
         @abstractmethod
